@@ -1,4 +1,9 @@
-setwd('~/Dropbox/ucirvine/research/papers/2017_obgpps/2018-03-Simulations/ate-simresults/')
+setwd('~/git/paperOptBalGPPS/Simulations/ate-simresults/')
+
+#-------------------------------------------------------------------------------
+# Creating Table 4 -----
+#-------------------------------------------------------------------------------
+
 ateresults <- readRDS('2018-03-22-nonparametric_odd-atesim-results.rds')
 
 true_ate <- 3
@@ -24,7 +29,6 @@ em_avg_absbias <- apply(abs(biases_em), 2, mean)
 em_emp_std_err <- apply(ateresults$EffModResults, 2, sd)
 em_emp_mse <- apply(biases_em^2, 2, mean)
 
-
 outro <- rbind(meanbal1, meanbal15, meanbal2,
                lin_avg_bias, lin_avg_absbias, lin_bias_red, lin_emp_std_err, lin_emp_mse,
                em_avg_bias, em_avg_absbias, em_bias_red, em_emp_std_err, em_emp_mse)
@@ -32,11 +36,11 @@ colnames(outro) <- c('NAIVE', 'TRUEPS', 'OBGPPS:NPSE', 'OBGPPS:SE',
                      'BART', 'GBM:KS.MEAN', 'GBM:ES.MEAN', 'GBM:ES.MAX',
                      'GLM:CORRECT', 'CBPS:CORRECT', 'GLM:MISSPECIFIED', 'CBPS:MISSPECIFIED')
 xtable::xtable(t(outro), digits=3)
-
-
 t(outro)
 
-
+#-------------------------------------------------------------------------------
+# Creating Table 5
+#-------------------------------------------------------------------------------
 ateresults <- readRDS('2018-03-23-nonparametric_even-atesim-results.rds')
 
 true_ate <- 3
@@ -62,7 +66,6 @@ em_avg_absbias <- apply(abs(biases_em), 2, mean)
 em_emp_std_err <- apply(ateresults$EffModResults, 2, sd)
 em_emp_mse <- apply(biases_em^2, 2, mean)
 
-
 outro <- rbind(meanbal1, meanbal15, meanbal2,
                lin_avg_bias, lin_avg_absbias, lin_bias_red, lin_emp_std_err, lin_emp_mse,
                em_avg_bias, em_avg_absbias, em_bias_red, em_emp_std_err, em_emp_mse)
@@ -70,6 +73,5 @@ colnames(outro) <- c('NAIVE', 'TRUEPS', 'OBGPPS:NPSE', 'OBGPPS:SE',
                      'BART', 'GBM:KS.MEAN', 'GBM:ES.MEAN', 'GBM:ES.MAX',
                      'GLM:CORRECT', 'CBPS:CORRECT', 'GLM:MISSPECIFIED', 'CBPS:MISSPECIFIED')
 xtable::xtable(t(outro), digits=3)
-
-
 t(outro)
+
