@@ -1,4 +1,5 @@
-setwd('~/Dropbox/ucirvine/research/papers/2017_obgpps/2018-03-Simulations/att-simresults/')
+setwd('~/git/paperOptBalGPPS/Simulations/att-simresults/')
+
 attresults <- readRDS('2018-03-21-attsim-mixtures-results.rds')
 
 offset <- 1
@@ -25,7 +26,7 @@ v_t <- p1_t * ((m1_t - m_t)^2 + s1_t^2) + (1 - p1_t) * ((m2_t - m_t)^2 + s2_t^2)
 true_att_em <- v_t + m_t^2 + 2 - m_t
 true_att_lin <- m_t + 3 - m_t
 
-pdf('att-simulationsetup.pdf', height=4, width=12)
+# pdf('att-simulationsetup.pdf', height=4, width=12)
 testexes <- seq(-10, 10, length.out = 1000)
 densXt <- p1_t * dnorm(testexes, m1_t, s1_t) + (1 - p1_t) * dnorm(testexes, m2_t, s2_t)
 densXc <- p1_c * dnorm(testexes, m1_c, s1_c) + (1 - p1_c) * dnorm(testexes, m2_c, s2_c)
@@ -44,7 +45,11 @@ plot(testexes, p_tgivenx, type='l',
      lwd=3, col = rgb(0,0,0,0.5),
      xlab=expression(X[1]), ylab=expression("Pr" * (T ==1 ~ "|" ~ X)),
      main=expression(paste('True Probability of Treatment',sep='')))
-dev.off()
+# dev.off()
+
+#-------------------------------------------------------------------------------
+# Creating Table 7 -----
+#-------------------------------------------------------------------------------
 
 true_att_em
 true_att_lin
