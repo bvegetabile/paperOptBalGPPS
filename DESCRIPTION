@@ -1,13 +1,15 @@
 Package: paperOptBalGPPS
 Type: Package
-Title: What the Package Does (Title Case)
+Title: “Optimally Balanced Gaussian Process Propensity Scores for Estimating Treatment Effects”
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Brian Vegetabile
+Maintainer: Brian Vegetabile <bvegetab@uci.edu>
+Description: Code and simulations related to the paper “Optimally Balanced Gaussian Process Propensity Scores for Estimating Treatment Effects”
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: Rcpp (>= 0.12.14)
-LinkingTo: Rcpp
+Imports: 
+    Rcpp (>= 0.12.12),
+    minqa
+LinkingTo: Rcpp, RcppArmadillo, RcppParallel
+SystemRequirements: C++11
