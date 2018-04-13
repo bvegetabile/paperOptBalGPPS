@@ -7,12 +7,12 @@ Package and simulations related to "Optimally Balanced Gaussian Process Propensi
 
 1. Clone or download this repository
 2. Using RStudio, open the file paperOptBalGPPS.Rproj file
-3. Compile the package (on a Mac this can be done with `command+shift+b'
+3. Compile the package (on a Mac this can be done with "command+shift+b"
     - This may require the devtools package
 
-## Running Simulations
+## Replicating the Simulation Section
 
-The simulations that were run for the paper are located within the ~Simulations/ folder
+The simulations that were run for the paper are located within the ~Simulations/ folder.  Each simulation was run with `n_sim=1000`.
 
 - 01-atesim.R - Provides simulations for comparing methods for estimating the ATE
 - 02-atesim-tablesforpaper.R - Compiles the results from 01-atesim.R for building tables
@@ -30,5 +30,5 @@ Within the simulation folder are two other folders which contain the simulation 
  - ~Simulations/att-simresults/
      - 2018-03-21-attsim-mixtures-results.rds
 
-
+## Recreating the Application
 
