@@ -8,7 +8,7 @@ Package and simulations related to "Optimally Balanced Gaussian Process Propensi
 1. Clone or download this repository
 2. Using RStudio, open the file paperOptBalGPPS.Rproj file
 3. Compile the package (on a Mac this can be done with "command+shift+b"
-    - This may require the devtools package
+    - This may require the `devtools` package
 
 ## Replicating the Simulation Section
 
@@ -32,3 +32,4 @@ Within the simulation folder are two other folders which contain the simulation 
 
 ## Recreating the Application
 
+To recreate the application section results the file `dw99_replication.R` is provided.  Data for the replication is within the data folder. 
