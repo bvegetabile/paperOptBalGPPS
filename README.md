@@ -32,4 +32,7 @@ Within the simulation folder are two other folders which contain the simulation 
 
 ## Recreating the Application
 
-To recreate the application section results the file `dw99_replication.R` is provided.  Data for the replication is within the data folder. 
+To recreate the application section results the file `dw99_replication.R` is provided.  
+
+- Data for the replication is within the data folder. 
+- Note: Propensity score estimates that were used in this paper were too large to store on Github.  A link to Dropbox can be provided if there is a desire to compare against the results obtained by the authors.  
