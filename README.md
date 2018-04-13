@@ -12,4 +12,9 @@ Package and simulations related to "Optimally Balanced Gaussian Process Propensi
 
 ## Running Simulations
 
+The simulations that were run for the paper are located within the ~Simulations/ folder
+
+- 01-atesim.R - Provides simulations for comparing the ATE
+- 02-atesim-tablesforpaper.R - Compiles the results from 01-atesim.R for building tables
+
 
