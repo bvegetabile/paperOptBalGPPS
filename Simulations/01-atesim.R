@@ -1,10 +1,10 @@
-setwd('~/git/paperOptBalGPPS/Simulations/')
+setwd('~/Documents/GitHub/paperOptBalGPPS/Simulations/')
 
 #-------------------------------------------------------------------------------
 # Number of sims to run
 set.seed(89274)
 # n_sims <- 1000
-n_sims <- 1
+n_sims <- 25
 #-------------------------------------------------------------------------------
 
 lm_ps <- function(Y, X, wts, true_val = NULL){
@@ -76,6 +76,19 @@ sim_settings <- list('nonparametric_odd' = list('type' = 'odd',
                                                  'alph2' = 0.125,
                                                  'simtitle'='Non-Parametric Function - Even'))
 
+mc_est_sims <- 10000
+n_obs <- 500
+mc_res <- matrix(NA, nrow = mc_est_sims, ncol = 1)
+for(mc in 1:mc_est_sims){
+  X1 <- rnorm(n_obs)
+  X2 <- rbinom(n_obs, 1, prob = 0.4)
+  Yt_em <- exp(X1) + 4 * X1 + 2 + rnorm(n_obs, sd = 0.5)
+  Yc_em <- - X1^2 - exp(X1) + rnorm(n_obs, sd = 0.5)
+  mc_res[mc,] <- mean(Yt_em - Yc_em)
+}
+true_ate_em <- mean(mc_res)
+
+
 true_ate <- 3
 
 for(ss in 1:length(sim_settings)){
@@ -134,7 +147,6 @@ for(ss in 1:length(sim_settings)){
       true_ps <- even_ps_func(X1, X2, inter, beta1, beta2, beta3, alph1, alph2)
     }
 
-
     TA <- rbinom(n_obs, 1, true_ps)
     dset <- data.frame(X1 = X1, X2 = X2, TA=TA)
     Xdes <- cbind(1, TA)
@@ -145,9 +157,9 @@ for(ss in 1:length(sim_settings)){
     Yo_lin <- TA * Yt_lin + (1-TA)*Yc_lin
 
     # Effect Modification
-    Yt_em <- X1^2 + 2 + rnorm(n_obs, sd = 0.25)
-    Yc_em <- X1 + rnorm(n_obs, sd = 0.25)
-    Yo_em <- TA * Yt_em + (1-TA)*Yc_em
+    Yt_em <- exp(X1) + 4 * X1 + 2 + rnorm(n_obs, sd = 0.5)
+    Yc_em <- - X1^2 - exp(X1) + rnorm(n_obs, sd = 0.5)
+    Yo_em <- TA * Yt_em + (1-TA) * Yc_em
 
     # Naive Estimates
     naive_ate_lin <- lm(Yo_lin ~ TA)
@@ -162,9 +174,9 @@ for(ss in 1:length(sim_settings)){
       est_ps_glm1 <- as.vector(fitted(glm(TA ~ X1 + I(X1^2) + X2, family = 'binomial')))
     }
     if(fn_type=='odd'){
-      est_ps_glm2 <- as.vector(fitted(glm(TA ~ X1, family = 'binomial')))
+      est_ps_glm2 <- as.vector(fitted(glm(TA ~ X1 + X2, family = 'binomial')))
     } else {
-      est_ps_glm2 <- as.vector(fitted(glm(TA ~ X1, family = 'binomial')))
+      est_ps_glm2 <- as.vector(fitted(glm(TA ~ X1 + X2, family = 'binomial')))
     }
     est_ps_gp1 <- paperOptBalGPPS::gpbal(Xscaled, TA,
                                     paperOptBalGPPS::sqexp_poly,
@@ -175,7 +187,8 @@ for(ss in 1:length(sim_settings)){
                                     c(1, 0.5),
                                     wts_vers = 'ATE')
     bart_train <- BART::mc.pbart(Xscaled, TA, seed = s+2018)
-    est_ps_bart <- pnorm(bart_train$yhat.train.mean)
+    # est_ps_bart <- pnorm(bart_train$yhat.train.mean)
+    est_ps_bart <- bart_train$prob.train.mean
     if(fn_type=='odd'){
       capture.output(est_ps_cbps1 <- as.vector(fitted(CBPS::CBPS(TA ~ X1 + X2 + X1*X2,
                                                                  ATT = 0, family = 'binomial'))))
@@ -275,7 +288,7 @@ for(ss in 1:length(sim_settings)){
 
 
 
-  bias_em_mat <- res_mat_em - true_ate
+  bias_em_mat <- res_mat_em - true_ate_em
   bias_lin_mat <- res_mat_lin - true_ate
 
   mean_bal1 <- apply(abs(bal_mats1) < 0.2, 2, mean, na.rm=T)
@@ -307,5 +320,5 @@ for(ss in 1:length(sim_settings)){
   print(t(outro_lin))
   print(t(outro_em))
 
-  # saveRDS(results_data, paste(Sys.Date(), '-', sim_name, '-atesim-results.rds', sep=''))
+  saveRDS(results_data, paste(Sys.Date(), '-', sim_name, '-atesim-results.rds', sep=''))
 }
