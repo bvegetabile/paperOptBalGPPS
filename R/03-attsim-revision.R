@@ -44,7 +44,6 @@ bal_mats3 <- matrix(NA, nrow=n_sims, ncol=11)
 bal_mats4 <- matrix(NA, nrow=n_sims, ncol=11)
 bal_mats5 <- matrix(NA, nrow=n_sims, ncol=11)
 
-opt_thetas <- matrix(NA, nrow=n_sims, ncol=2)
 n_obs <- 500
 
 for(i in 1:n_sims){
@@ -221,10 +220,7 @@ results_data <- list('Cov1_Balance' = bal_mats1,
                      'Cov4_Balance' = bal_mats4,
                      'Cov5_Balance' = bal_mats5,
                      'LinearResults' = res_mat_lin,
-                     'EffModResults' = res_mat_em,
-                     'NPSE_OptThetas' = opt_thetas)
-
-
+                     'EffModResults' = res_mat_em)
 
 bias_em_mat <- res_mat_em - mean(res_mat_em[,1])
 bias_lin_mat <- res_mat_lin - 10
