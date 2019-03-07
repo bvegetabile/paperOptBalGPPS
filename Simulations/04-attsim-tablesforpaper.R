@@ -51,8 +51,8 @@ plot(testexes, p_tgivenx, type='l',
 # Creating Table 7 -----
 #-------------------------------------------------------------------------------
 
-true_att_em
-true_att_lin
+true_att_em <-
+true_att_lin <- 10
 
 # Balance Summaries
 meanbal1 <- apply(abs(attresults$Cov1_Balance) < 0.1 & abs(attresults$Cov2_Balance) < 0.1, 2, mean)

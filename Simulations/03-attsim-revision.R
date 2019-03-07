@@ -2,9 +2,9 @@
 # Number of sims to run
 set.seed(89274)
 # n_sims <- 1000
-n_sims <- 10
+n_sims <- 1000
 
-setwd('~/git/paperOptBalGPPS/Simulations/att-simresults/')
+setwd('~/Documents/GitHub/paperOptBalGPPS/Simulations/att-simresults/')
 
 lm_ps <- function(Y, X, wts, true_val = NULL){
   W <- diag(wts)
@@ -226,7 +226,7 @@ bias_em_mat <- res_mat_em - mean(res_mat_em[,1])
 bias_lin_mat <- res_mat_lin - 10
 # bias_non_mat <- res_mat_non - true_non
 
-thresh <- 0.1
+thresh <- 0.2
 mean_bal1 <- apply(abs(bal_mats1) < thresh, 2, mean, na.rm=T)
 mean_bal2 <- apply(abs(bal_mats2) < thresh, 2, mean, na.rm=T)
 mean_balb <- apply(abs(bal_mats1) < thresh & abs(bal_mats2) < thresh & abs(bal_mats3) < thresh & abs(bal_mats4) < thresh & abs(bal_mats5) < thresh, 2, mean, na.rm=T)
@@ -264,3 +264,6 @@ colnames(outro_em) <- c('TRUTH', "TRUEPS",
                         'CBPS', 'GLM:POLY2', 'GLM:POLY1')
 print(t(outro_lin)[2:12,])
 print(t(outro_em)[2:12,])
+
+saveRDS(results_data, paste(Sys.Date(), '-attsim-multivariate-results-revision.rds', sep=''))
+

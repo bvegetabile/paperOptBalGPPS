@@ -179,8 +179,8 @@ psid1_est1 <- lm_ps(data_obs_psid1$RE78, psid1_X, data_obs_psid1$wts, true_val =
 psid1_est2 <- lm_ps(data_obs_psid1$RE78[psid1_mask],
               psid1_X[psid1_mask,],
               data_obs_psid1$wts[psid1_mask], true_val = 0)
-paperOptBalGPPS::bal_table(data_obs_psid1, 2:9, as.logical(data_obs_psid1$ta), wts = data_obs_psid1$wts)
 bal_total_psid1 <- mom_sq_bal(data_obs_psid1, 2:9, as.logical(data_obs_psid1$ta), wts =  data_obs_psid1$wts)
+psid1_bal <- paperOptBalGPPS::bal_table(data_obs_psid1, 2:9, as.logical(data_obs_psid1$ta), wts = data_obs_psid1$wts)
 
 # PSID-2 ANALYSIS
 dsw99_psid2mod <- glm(ta ~ age + I(age^2) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + I(RE74^2) + I(RE75^2) + u74 + u75,
@@ -194,7 +194,7 @@ psid2_est1 <- lm_ps(data_obs_psid2$RE78, psid2_X, data_obs_psid2$wts, true_val =
 psid2_est2 <- lm_ps(data_obs_psid2$RE78[psid2_mask],
                     psid2_X[psid2_mask,],
                     data_obs_psid2$wts[psid2_mask], true_val = 0)
-paperOptBalGPPS::bal_table(data_obs_psid2, 2:9, as.logical(data_obs_psid2$ta), wts = data_obs_psid2$wts)
+psid2_bal <- paperOptBalGPPS::bal_table(data_obs_psid2, 2:9, as.logical(data_obs_psid2$ta), wts = data_obs_psid2$wts)
 bal_total_psid2 <- mom_sq_bal(data_obs_psid2, 2:9, as.logical(data_obs_psid2$ta), wts =  data_obs_psid2$wts)
 
 # PSID-2 ANALYSIS
@@ -209,7 +209,7 @@ psid3_est1 <- lm_ps(data_obs_psid3$RE78, psid3_X, data_obs_psid3$wts, true_val =
 psid3_est2 <- lm_ps(data_obs_psid3$RE78[psid3_mask],
                     psid3_X[psid3_mask,],
                     data_obs_psid3$wts[psid3_mask], true_val = 0)
-paperOptBalGPPS::bal_table(data_obs_psid3, 2:9, as.logical(data_obs_psid3$ta), wts = data_obs_psid3$wts)
+psid3_bal <- paperOptBalGPPS::bal_table(data_obs_psid3, 2:9, as.logical(data_obs_psid3$ta), wts = data_obs_psid3$wts)
 bal_total_psid3 <- mom_sq_bal(data_obs_psid3, 2:9, as.logical(data_obs_psid3$ta), wts =  data_obs_psid3$wts)
 print(rbind(c(bal_total_psid1, psid1_est1$ests[2,1],psid1_est1$ests[2,2]),
             c(bal_total_psid2, psid2_est1$ests[2,1],psid2_est1$ests[2,2]),
@@ -217,7 +217,7 @@ print(rbind(c(bal_total_psid1, psid1_est1$ests[2,1],psid1_est1$ests[2,2]),
 
 
 # cps-1 ANALYSIS
-dsw99_cps1mod <- glm(ta ~ age + I(age^2) + I(age^3) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + u74 + u75 + I(education * black),
+dsw99_cps1mod <- glm(ta ~ age + I(age^2) + I(age^3) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + u74 + u75 + I(education * RE74),
                       data = data_obs_cps1, family = 'binomial')
 data_obs_cps1$ps <- predict(dsw99_cps1mod, type = 'response')
 data_obs_cps1$wts <- make_wts2(data_obs_cps1$ta, data_obs_cps1$ps)
@@ -228,11 +228,11 @@ cps1_est1 <- lm_ps(data_obs_cps1$RE78, cps1_X, data_obs_cps1$wts, true_val = 0)
 cps1_est2 <- lm_ps(data_obs_cps1$RE78[cps1_mask],
                     cps1_X[cps1_mask,],
                     data_obs_cps1$wts[cps1_mask], true_val = 0)
-paperOptBalGPPS::bal_table(data_obs_cps1, 2:9, as.logical(data_obs_cps1$ta), wts = data_obs_cps1$wts)
+cps1_bal <- paperOptBalGPPS::bal_table(data_obs_cps1, 2:9, as.logical(data_obs_cps1$ta), wts = data_obs_cps1$wts)
 bal_total_cps1 <- mom_sq_bal(data_obs_cps1, 2:9, as.logical(data_obs_cps1$ta), wts =  data_obs_cps1$wts)
 
 # cps-2 ANALYSIS
-dsw99_cps2mod <- glm(ta ~ age + I(age^2) + I(age^3) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + u74 + u75 + I(education * black),
+dsw99_cps2mod <- glm(ta ~ age + I(age^2) + I(age^3) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + u74 + u75 + I(education * RE74),
                       data = data_obs_cps2, family = 'binomial')
 data_obs_cps2$ps <- predict(dsw99_cps2mod, type = 'response')
 data_obs_cps2$wts <- make_wts2(data_obs_cps2$ta, data_obs_cps2$ps)
@@ -243,11 +243,11 @@ cps2_est1 <- lm_ps(data_obs_cps2$RE78, cps2_X, data_obs_cps2$wts, true_val = 0)
 cps2_est2 <- lm_ps(data_obs_cps2$RE78[cps2_mask],
                     cps2_X[cps2_mask,],
                     data_obs_cps2$wts[cps2_mask], true_val = 0)
-paperOptBalGPPS::bal_table(data_obs_cps2, 2:9, as.logical(data_obs_cps2$ta), wts = data_obs_cps2$wts)
+cps2_bal <- paperOptBalGPPS::bal_table(data_obs_cps2, 2:9, as.logical(data_obs_cps2$ta), wts = data_obs_cps2$wts)
 bal_total_cps2 <- mom_sq_bal(data_obs_cps2, 2:9, as.logical(data_obs_cps2$ta), wts =  data_obs_cps2$wts)
 
 # cps-2 ANALYSIS
-dsw99_cps3mod <- glm(ta ~ age + I(age^2) + I(age^3) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + u74 + u75 + I(education * black),
+dsw99_cps3mod <- glm(ta ~ age + I(age^2) + I(age^3) + education + I(education^2) + married + nodegree + black + hispanic + RE74 + RE75 + u74 + u75 + I(education * RE74),
                       data = data_obs_cps3, family = 'binomial')
 data_obs_cps3$ps <- predict(dsw99_cps3mod, type = 'response')
 data_obs_cps3$wts <- make_wts2(data_obs_cps3$ta, data_obs_cps3$ps)
@@ -258,7 +258,7 @@ cps3_est1 <- lm_ps(data_obs_cps3$RE78, cps3_X, data_obs_cps3$wts, true_val = 0)
 cps3_est2 <- lm_ps(data_obs_cps3$RE78[cps3_mask],
                     cps3_X[cps3_mask,],
                     data_obs_cps3$wts[cps3_mask], true_val = 0)
-paperOptBalGPPS::bal_table(data_obs_cps3, 2:9, as.logical(data_obs_cps3$ta), wts = data_obs_cps3$wts)
+cps3_bal <- paperOptBalGPPS::bal_table(data_obs_cps3, 2:9, as.logical(data_obs_cps3$ta), wts = data_obs_cps3$wts)
 bal_total_cps3 <- mom_sq_bal(data_obs_cps3, 2:9, as.logical(data_obs_cps3$ta), wts =  data_obs_cps3$wts)
 print(rbind(c(bal_total_cps1, cps1_est1$ests[2,1],cps1_est1$ests[2,2]),
             c(bal_total_cps2, cps2_est1$ests[2,1],cps2_est1$ests[2,2]),
@@ -267,3 +267,12 @@ print(rbind(c(bal_total_cps1, cps1_est1$ests[2,1],cps1_est1$ests[2,2]),
 mom_sq_bal(data_obs_cps3,
            2:9, as.logical(data_obs_cps3$ta),
            wts =  ifelse(data_obs_cps3$ta == 1, 1/ sum(data_obs_cps3$ta == 1), 1/ sum(data_obs_cps3$ta == 0)))
+
+c(bal_total_psid1)
+
+balmetrics <- round(cbind(psid1_bal[,7:8],
+                          psid2_bal[,7:8],
+                          psid3_bal[,7:8],
+                          cps1_bal[,7:8],
+                          cps2_bal[,7:8],
+                          cps3_bal[,7:8]),2)
