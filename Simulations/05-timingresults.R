@@ -165,7 +165,7 @@ for(ss in 1:1){
 
       bart_start <- Sys.time()
       bart_train <- BART::mc.pbart(Xscaled, TA, seed = s+2018)
-      est_ps_bart <- pnorm(bart_train$yhat.train.mean)
+      est_ps_bart <- pnorm(apply(bart_train$yhat.train, 2, mean))
       bart_end <- Sys.time()
       bart_diff <- difftime(bart_end, bart_start, units = 'secs')
 

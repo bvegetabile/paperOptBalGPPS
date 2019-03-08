@@ -1,7 +1,7 @@
 # paperOptBalGPPS
 Package and simulations related to "Optimally Balanced Gaussian Process Propensity Scores for Estimating Treatment Effects" by Brian Vegetabile, Dan L. Gillen, and Hal Stern
 
-- This repository serves as a snapshot of the "gpbalancer" package as of 4/12/2018 to provide consistent and stable reproducibility of results within the paper.  
+- This repository serves as a snapshot of the "gpbalancer" package as of 3/7/2019 to provide consistent and stable reproducibility of results within the paper.  
 
 ## Installation Instructions
 
@@ -16,7 +16,7 @@ The simulations that were run for the paper are located within the ~Simulations/
 
 - `01-atesim.R` - Provides simulations for comparing methods for estimating the ATE
 - `02-atesim-tablesforpaper.R` - Compiles the results from 01-atesim.R for building tables
-- `03-attsim-mixtures.R` - Provides simulations for comparing methods for estimating the ATT
+- `03-attsim-revision.R` - Provides simulations for comparing methods for estimating the ATT
 - `04-attsim-tablesforpaper.R` - Compiles the results from 03-attsim-mixtures.R for building tables
 - `05-timingresults.R` - Compares timing results that were provided in the discussion section
 
@@ -32,7 +32,7 @@ Within the simulation folder are two other folders which contain the simulation 
 
 ## Recreating the Application
 
-To recreate the application section results the file `dw99_replication.R` is provided.  
+To recreate the application section results the file `dw99_replication.R` is provided that utilizes out GP methodology.  A secondary analysis re-evaluates the DW99 data using the models defined in that paper, but utilizing IPW estimation.  These can be recreated using `reanalyzing_ds99.R`
 
 - Data for the replication is within the data folder. 
-- Note: Propensity score estimates that were used in this paper were too large to store on Github.  A link to Dropbox can be provided if there is a desire to compare against the results obtained by the authors.  
+- Note: Propensity score estimates that were used in this paper were too large to store on Github. 
