@@ -25,10 +25,10 @@ The simulations that were run for the paper are located within the ~Simulations/
 Within the simulation folder are two other folders which contain the simulation results that were used to construct the tables for the paper.
 
  - ~Simulations/ate-simresults/
-     - `2018-03-22-nonparametric_odd-atesim-results.rds`
-     - `2018-03-23-nonparametric_even-atesim-results.rds`
+     - `2019-02-08-nonparametric_odd-atesim-results.rds`
+     - `2018-02-08-nonparametric_even-atesim-results.rds`
  - ~Simulations/att-simresults/
-     - `2018-03-21-attsim-mixtures-results.rds`
+     - `2019-02-11-attsim-multivariate-results-revision.rds`
 
 ## Recreating the Application
 

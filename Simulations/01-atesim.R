@@ -4,7 +4,7 @@ setwd('~/Documents/GitHub/paperOptBalGPPS/Simulations/')
 # Number of sims to run
 set.seed(89274)
 # n_sims <- 1000
-n_sims <- 25
+n_sims <- 1
 #-------------------------------------------------------------------------------
 
 lm_ps <- function(Y, X, wts, true_val = NULL){
@@ -320,5 +320,5 @@ for(ss in 1:length(sim_settings)){
   print(t(outro_lin))
   print(t(outro_em))
 
-  saveRDS(results_data, paste(Sys.Date(), '-', sim_name, '-atesim-results.rds', sep=''))
+  # saveRDS(results_data, paste(Sys.Date(), '-', sim_name, '-atesim-results.rds', sep=''))
 }

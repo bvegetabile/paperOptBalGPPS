@@ -2,7 +2,7 @@
 # Number of sims to run
 set.seed(89274)
 # n_sims <- 1000
-n_sims <- 1000
+n_sims <- 1
 
 setwd('~/Documents/GitHub/paperOptBalGPPS/Simulations/att-simresults/')
 

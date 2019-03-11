@@ -1,10 +1,22 @@
-setwd('~/git/paperOptBalGPPS/Simulations/ate-simresults/')
+setwd('~/Documents/Github/paperOptBalGPPS/Simulations/ate-simresults/')
 
 #-------------------------------------------------------------------------------
 # Creating Table 4 -----
 #-------------------------------------------------------------------------------
 
-ateresults <- readRDS('2018-03-22-nonparametric_odd-atesim-results.rds')
+ateresults <- readRDS('2019-02-08-nonparametric_odd-atesim-results.rds')
+
+mc_est_sims <- 10000
+n_obs <- 500
+mc_res <- matrix(NA, nrow = mc_est_sims, ncol = 1)
+for(mc in 1:mc_est_sims){
+  X1 <- rnorm(n_obs)
+  X2 <- rbinom(n_obs, 1, prob = 0.4)
+  Yt_em <- exp(X1) + 4 * X1 + 2 + rnorm(n_obs, sd = 0.5)
+  Yc_em <- - X1^2 - exp(X1) + rnorm(n_obs, sd = 0.5)
+  mc_res[mc,] <- mean(Yt_em - Yc_em)
+}
+true_ate_em <- mean(mc_res)
 
 true_ate <- 3
 
@@ -21,7 +33,7 @@ lin_avg_absbias <- apply(abs(biases_lin), 2, mean)
 lin_emp_std_err <- apply(ateresults$LinearResults, 2, sd)
 lin_emp_mse <- apply(biases_lin^2, 2, mean)
 
-biases_em <- ateresults$EffModResults - true_ate
+biases_em <- ateresults$EffModResults - true_ate_em
 niave_bias <- matrix(rep(biases_em[,1], 12), nrow=nrow(biases_em), ncol=12)
 em_avg_bias <- apply(biases_em, 2, mean)
 em_bias_red <- apply(1 - abs(biases_em) / abs(niave_bias), 2, mean) * 100
@@ -41,7 +53,7 @@ t(outro)
 #-------------------------------------------------------------------------------
 # Creating Table 5
 #-------------------------------------------------------------------------------
-ateresults <- readRDS('2018-03-23-nonparametric_even-atesim-results.rds')
+ateresults <- readRDS('2019-02-08-nonparametric_even-atesim-results.rds')
 
 true_ate <- 3
 
@@ -58,7 +70,7 @@ lin_avg_absbias <- apply(abs(biases_lin), 2, mean)
 lin_emp_std_err <- apply(ateresults$LinearResults, 2, sd)
 lin_emp_mse <- apply(biases_lin^2, 2, mean)
 
-biases_em <- ateresults$EffModResults - true_ate
+biases_em <- ateresults$EffModResults - true_ate_em
 niave_bias <- matrix(rep(biases_em[,1], 12), nrow=nrow(biases_em), ncol=12)
 em_avg_bias <- apply(biases_em, 2, mean)
 em_bias_red <- apply(1 - abs(biases_em) / abs(niave_bias), 2, mean) * 100
